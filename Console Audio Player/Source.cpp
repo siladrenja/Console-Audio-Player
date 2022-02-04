@@ -172,8 +172,10 @@ int play(string a) {
 }
 
 int Queue(string a) {
+	int i = 0;
 	for (filesystem::path q : SongQueue) {
-		cout << tostringnoUTF(q) << endl;
+		cout << i << "::" << tostringnoUTF(q) << endl;
+		i++;
 	}
 
 	return 0;
@@ -212,13 +214,34 @@ int _cls(string a) {
 	return 0;
 }
 
+
+
 #pragma endregion
 
 
+string ManDefinitions[][2] = {
+	{"man", "manual page, duh"},
+	{ "shuffle", "shuffles the queue" }
 
+};
 
-string Commands[] = { "ping", "cd", "exit", "quit", "leave", "dir", "tree","play", "queue", "skip", "volume", "v", "stop", "shuffle", "system", "cls"};
-int ((*CommandFunctions[])(string)) = {ping, move, leave, leave , leave, dir, tree, play, Queue, skip, Volume, Volume, stop, _Shuffle, _System, _cls};
+string Commands[] = { "man", "ping", "cd", "exit", "quit", "leave", "dir", "tree","play", "queue", "skip", "volume", "v", "stop", "shuffle", "system", "cls", };
+int man(string a) {
+	if (a.empty()) {
+		for (string b : Commands) {
+			cout << b << endl;
+		}
+	} else {
+		for (auto b : ManDefinitions) {
+			if (b[0] == a) {
+				cout << b[0] << "::" << b[1] << endl;
+			}
+		}
+	}
+
+	return 0;
+}
+int ((*CommandFunctions[])(string)) = { man, ping, move, leave, leave , leave, dir, tree, play, Queue, skip, Volume, Volume, stop, _Shuffle, _System, _cls };
 
 void Player() {
 
