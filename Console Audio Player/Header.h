@@ -119,6 +119,6 @@ std::string tostringnoUTF(std::filesystem::path path) {
 
 namespace math {
     float clamp(float val, float min, float max) {
-        return (((val > min) && (val < max)) ? val : (val < min) ? min : max);
+        return (((val >= min) && (val <= max)) ? val : ((val < min) ? min : max));
     }
 }

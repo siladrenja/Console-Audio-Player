@@ -218,7 +218,6 @@ int _cls(string a) {
 
 int SoundRotation(string a){
 	soloud.setPan(CurrentAudio, math::clamp(stof(a), -1, 1));
-	cout << math::clamp(stof(a), -1, 1);
 	return 0;
 }
 
