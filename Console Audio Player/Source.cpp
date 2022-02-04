@@ -15,6 +15,7 @@
 
 using namespace std;
 
+bool LeaveThreads = false;
 
 string Location = ".\\";
 
@@ -72,7 +73,8 @@ int move(string a) {
 }
 
 int leave(string a) {
-	
+	LeaveThreads = true;
+	t1.join();
 	exit(0);
 }
 
@@ -228,8 +230,10 @@ string ManDefinitions[][2] = {
 string Commands[] = { "man", "ping", "cd", "exit", "quit", "leave", "dir", "tree","play", "queue", "skip", "volume", "v", "stop", "shuffle", "system", "cls", };
 int man(string a) {
 	if (a.empty()) {
+
+		cout << "list of commands:\n";
 		for (string b : Commands) {
-			cout << b << endl;
+			cout << "\t|" << b << endl;
 		}
 	} else {
 		for (auto b : ManDefinitions) {
@@ -254,8 +258,9 @@ void Player() {
 
 			SongQueue.erase(SongQueue.begin());
 		}
-
+		if (LeaveThreads) return;
 		while (soloud.getActiveVoiceCount() > 0) {
+			if (LeaveThreads) return;
 			SoLoud::Thread::sleep(100);
 		}
 	}
@@ -315,7 +320,7 @@ int main(int argc, char* argv[]) {
 		}
 		
 	}
-
+	LeaveThreads = true;
 	t1.join();
 
 	return 0;
