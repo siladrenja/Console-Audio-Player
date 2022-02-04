@@ -14,4 +14,153 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_audiosource.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_bus.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_3d.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_basicops.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_faderops.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_filterops.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_getters.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_setters.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_voicegroup.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_core_voiceops.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_fader.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_fft.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_fft_lut.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_file.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_filter.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_misc.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_queue.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\core\soloud_thread.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\backend\sdl2_static\soloud_sdl2_static.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\wav\dr_impl.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\wav\soloud_wav.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\wav\soloud_wavstream.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\wav\stb_vorbis.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl1.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl1_dll.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl2.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl2_dll.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\backend\miniaudio\soloud_miniaudio.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\speech\darray.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\speech\klatt.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\speech\resonator.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\speech\soloud_speech.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soloud20200207\src\audiosource\speech\tts.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="soloud20200207\src\audiosource\wav\dr_flac.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\wav\dr_mp3.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\wav\dr_wav.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\wav\stb_vorbis.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\backend\miniaudio\miniaudio.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\speech\darray.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\speech\klatt.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\speech\resonator.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="soloud20200207\src\audiosource\speech\tts.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="soloud20200207\src\audiosource\speech\Elements.def">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="soloud20200207\src\audiosource\speech\legal_readme.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

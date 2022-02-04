@@ -17,7 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -53,97 +52,175 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" >
+  <ImportGroup Label="Shared">
   </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>D:\documents\libraries\SDL2-2.0.20\lib\x64;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>D:\documents\libraries\SDL2-2.0.20\lib\x64;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\documents\libraries\SDL2-2.0.20\lib\x64;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>D:\documents\libraries\SDL2-2.0.20\lib\x64;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\audiosource\wav;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\backend;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\backend\miniaudio;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\audiosource\wav;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\backend;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\backend\miniaudio;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\documents\libraries\SDL2-2.0.20\include;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\core;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\audiosource\wav;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\backend;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\src\backend\miniaudio;C:\Users\Matej\source\repos\Console Audio Player\Console Audio Player\soloud20200207\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="soloud20200207\src\audiosource\speech\darray.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\speech\klatt.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\speech\resonator.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\speech\soloud_speech.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\speech\tts.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\wav\dr_impl.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\wav\soloud_wav.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\wav\soloud_wavstream.cpp" />
+    <ClCompile Include="soloud20200207\src\audiosource\wav\stb_vorbis.c" />
+    <ClCompile Include="soloud20200207\src\backend\miniaudio\soloud_miniaudio.cpp" />
+    <ClCompile Include="soloud20200207\src\backend\sdl2_static\soloud_sdl2_static.cpp" />
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl1.cpp" />
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl1_dll.c" />
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl2.cpp" />
+    <ClCompile Include="soloud20200207\src\backend\sdl\soloud_sdl2_dll.c" />
+    <ClCompile Include="soloud20200207\src\core\soloud.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_audiosource.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_bus.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_3d.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_basicops.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_faderops.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_filterops.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_getters.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_setters.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_voicegroup.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_core_voiceops.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_fader.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_fft.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_fft_lut.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_file.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_filter.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_misc.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_queue.cpp" />
+    <ClCompile Include="soloud20200207\src\core\soloud_thread.cpp" />
+    <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\speech\darray.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\speech\klatt.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\speech\resonator.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\speech\tts.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\wav\dr_flac.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\wav\dr_mp3.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\wav\dr_wav.h" />
+    <ClInclude Include="soloud20200207\src\audiosource\wav\stb_vorbis.h" />
+    <ClInclude Include="soloud20200207\src\backend\miniaudio\miniaudio.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="soloud20200207\src\audiosource\speech\Elements.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="soloud20200207\src\audiosource\speech\legal_readme.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
