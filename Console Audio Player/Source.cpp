@@ -216,7 +216,11 @@ int _cls(string a) {
 	return 0;
 }
 
-
+int SoundRotation(string a){
+	soloud.setPan(CurrentAudio, math::clamp(stof(a), -1, 1));
+	cout << math::clamp(stof(a), -1, 1);
+	return 0;
+}
 
 #pragma endregion
 
@@ -227,7 +231,7 @@ string ManDefinitions[][2] = {
 
 };
 
-string Commands[] = { "man", "ping", "cd", "exit", "quit", "leave", "dir", "tree","play", "queue", "skip", "volume", "v", "stop", "shuffle", "system", "cls", };
+string Commands[] = { "man", "ping", "cd", "exit", "quit", "leave", "dir", "tree","play", "queue", "skip", "volume", "v", "stop", "shuffle", "system", "cls", "rotation", "pan"};
 int man(string a) {
 	if (a.empty()) {
 
@@ -245,7 +249,7 @@ int man(string a) {
 
 	return 0;
 }
-int ((*CommandFunctions[])(string)) = { man, ping, move, leave, leave , leave, dir, tree, play, Queue, skip, Volume, Volume, stop, _Shuffle, _System, _cls };
+int ((*CommandFunctions[])(string)) = { man, ping, move, leave, leave , leave, dir, tree, play, Queue, skip, Volume, Volume, stop, _Shuffle, _System, _cls, SoundRotation, SoundRotation };
 
 void Player() {
 
@@ -253,8 +257,8 @@ void Player() {
 	soloud.init();
 	while (true) {
 		if (!SongQueue.empty()) {
-			CurrentAudio = _sample.load(SongQueue[0].wstring().c_str());
-			soloud.play(_sample);
+			_sample.load(SongQueue[0].wstring().c_str());
+			CurrentAudio = soloud.play(_sample);
 
 			SongQueue.erase(SongQueue.begin());
 		}
