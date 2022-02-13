@@ -17,7 +17,7 @@
 
 #define timeout8D 10
 
-
+bool threadPause = false;
 
 using namespace std;
 
@@ -125,7 +125,7 @@ int play(string a) {
 			} else {
 				for (filesystem::path p : filesystem::directory_iterator(a)) {
 					if (isAudio(p.generic_string())) {
-						SongQueue.push_back(p.string());
+						SongQueue.push_back(p);
 					}
 				}
 			}
@@ -139,14 +139,14 @@ int play(string a) {
 
 				if (isFile(a)) {
 					if (isAudio(a)) {
-						SongQueue.push_back(filesystem::absolute((Location + (a.substr(1, a.length() - 1)))).string());
+						SongQueue.push_back(filesystem::absolute((Location + (a.substr(1, a.length() - 1)))));
 					} else {
 						cout << "invalid file type" << endl;
 					}
 				} else {
 					for (filesystem::path p : filesystem::directory_iterator(Location + (Location + (a.substr(1, a.length() - 1))))) {
 						if (isAudio(p.generic_string())) {
-							SongQueue.push_back(p.string());
+							SongQueue.push_back(p);
 						}
 					}
 				}
@@ -159,14 +159,14 @@ int play(string a) {
 
 				if (isFile(a)) {
 					if (isAudio(a)) {
-						SongQueue.push_back(filesystem::absolute((Location + a)).string());
+						SongQueue.push_back(filesystem::absolute((Location + a)));
 					} else {
 						cout << "invalid file type" << endl;
 					}
 				} else {
 					for (filesystem::path p : filesystem::directory_iterator(Location + (Location + a))) {
-						if (isAudio(p.generic_string())) {
-							SongQueue.push_back(p.string());
+						if (isAudio(p.wstring())) {
+							SongQueue.push_back(p);
 						}
 					}
 				}
@@ -275,22 +275,19 @@ int Playlist(string a) {
 					return -1;
 				}
 				for (int i = 0; i < SongQueue.size(); i++) {
-					file << SongQueue[i] << endl;
+					file << SongQueue[i].wstring() << endl;
 				}
 
 
 
 			} else if (command == "load") {
 				wifstream file(".\\playlists\\" + path + ".pl", ios::in);
+				file.seekg(0);
 				//SongQueue = (vector<filesystem::path>*)malloc(file.tellg());
 				std::wstring line;
 				while (std::getline(file, line)) {
-					std::wistringstream iss(line);
-					wstring temp;
-					if (!(iss >> temp)) { break; }
-
-
-					SongQueue.push_back(temp);
+					
+					SongQueue.push_back(line);
 				}
 			}
 		}
@@ -320,15 +317,17 @@ int Eff8D(string a) {
 
 int pause(string a) {
 	//if(soloud.getPause(CurrentAudio)) hum_silently();
-	SuspendThread(t1.native_handle());
-
+	//SuspendThread(t1.native_handle());
+	threadPause = true;
 	soloud.setPause(CurrentAudio, true);
 	return 0;
 }
 
 int unpause(string a) {
-	ResumeThread(t1.native_handle());
+	
 	soloud.setPause(CurrentAudio, false);
+	//SoLoud::Thread::sleep(5);
+	threadPause = true;
 	return 0;
 }
 
@@ -370,13 +369,13 @@ unordered_map<string, int (*)(string)> commands = {
 	{ "shuffle", _Shuffle },
 	{ "system", _System },
 	{ "cls", _cls },
-	{ "rotation", _cls },
-	{ "pan", _cls },
-	{ "playlist", _cls },
-	{ "playlists", _cls },
-	{ "8D", _cls },
-	{ "pause", _cls },
-	{ "unpause", _cls }
+	{ "rotation", SoundRotation },
+	{ "pan", SoundRotation },
+	{ "playlist", Playlist },
+	{ "playlists", Playlist },
+	{ "8D", Eff8D},
+	{ "pause", pause },
+	{ "unpause", unpause }
 };
 
 int man(string a) {
@@ -402,17 +401,32 @@ void Player() {
 
 	soloud.init();
 	while (true) {
+		while (threadPause) {
+			SoLoud::Thread::sleep(100);
+		}
+
 		if (!SongQueue.empty()) {
+			
 			_sample.load(SongQueue[0].wstring().c_str());
 			CurrentAudio = soloud.play(_sample);
 
 			SongQueue.erase(SongQueue.begin());
 		}
 		if (LeaveThreads) return;
+		while (threadPause) {
+			SoLoud::Thread::sleep(100);
+		}
 		while (soloud.getActiveVoiceCount() > 0) {
 			if (LeaveThreads) return;
 			SoLoud::Thread::sleep(100);
+			while (threadPause) {
+				SoLoud::Thread::sleep(100);
+			}
 		}
+		while (threadPause) {
+			SoLoud::Thread::sleep(100);
+		}
+		SoLoud::Thread::sleep(100);
 	}
 
 	soloud.deinit();
@@ -436,8 +450,12 @@ void _loop(float speed) {
 		} else if (soloud.getPan(CurrentAudio) == 1) {
 			state = true;
 		}
+
+		if (LeaveThreads) return;
+		if (!is8DActive) return;
 		SoLoud::Thread::sleep(timeout8D);
 	}
+	return;
 }
 
 int main(int argc, char* argv[]) {
@@ -448,6 +466,7 @@ int main(int argc, char* argv[]) {
 	string Command;
 
 	
+	SongQueue.push_back("HailKingDN.mp3");
 
 	cout << filesystem::absolute(Location) << ">>";
 	getline(cin, Command);
@@ -472,7 +491,7 @@ int main(int argc, char* argv[]) {
 	
 	
 
-
+		
 
 	while (true) {
 		cout << filesystem::absolute(Location) << ">>";

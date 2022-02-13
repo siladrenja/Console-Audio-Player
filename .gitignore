@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+./Console Audio Player/soloud20200207
+
 # User-specific files
 *.rsuser
 *.suo
