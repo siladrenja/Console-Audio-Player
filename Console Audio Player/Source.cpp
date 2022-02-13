@@ -327,7 +327,7 @@ int unpause(string a) {
 	
 	soloud.setPause(CurrentAudio, false);
 	//SoLoud::Thread::sleep(5);
-	threadPause = true;
+	threadPause = false;
 	return 0;
 }
 
@@ -403,6 +403,7 @@ void Player() {
 	while (true) {
 		while (threadPause) {
 			SoLoud::Thread::sleep(100);
+			if (LeaveThreads) return;
 		}
 
 		if (!SongQueue.empty()) {
@@ -415,16 +416,19 @@ void Player() {
 		if (LeaveThreads) return;
 		while (threadPause) {
 			SoLoud::Thread::sleep(100);
+			if (LeaveThreads) return;
 		}
 		while (soloud.getActiveVoiceCount() > 0) {
 			if (LeaveThreads) return;
 			SoLoud::Thread::sleep(100);
 			while (threadPause) {
 				SoLoud::Thread::sleep(100);
+				if (LeaveThreads) return;
 			}
 		}
 		while (threadPause) {
 			SoLoud::Thread::sleep(100);
+			if (LeaveThreads) return;
 		}
 		SoLoud::Thread::sleep(100);
 	}
