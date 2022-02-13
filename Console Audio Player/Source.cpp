@@ -13,7 +13,7 @@
 #include <fstream>
 #include <processthreadsapi.h>
 #include <codecvt>
-
+#include <unordered_map>
 
 #define timeout8D 10
 
@@ -335,46 +335,67 @@ int unpause(string a) {
 #pragma endregion
 
 
-string ManDefinitions[][2] = {
-	{"man", "-> manual page, duh"},
-	{"help", "-> do you really wonder that... or are you just trolling?"},
-	{ "shuffle", "-> shuffles the queue" },
-	{"playlist", "-> lists all saved playlists"},
-	{"playlist", " save [playlist name] -> saves playlist to file so you can easily load it when you want to"},
-	{"playlist", " load [playlist name] -> loads playlist from file"},
-	{"8D", "-> disables 8D audio"},
-	{"8D", " [speed] -> Loops audio around your head in an 8D fashion with [speed] speed"},
-	{"pause","you are definitelly trolling, IT PAUSES THE SONG"}
+unordered_map<string,string> ManDefinitions= {
+	{"man", " -> manual page, duh"},
+	{"help", " -> do you really wonder that... or are you just trolling?"},
+	{ "shuffle", " -> shuffles the queue" },
+	{"playlist", " -> lists all saved playlists\nplaylist save [playlist name] -> saves playlist to file so you can easily load it when you want to\nplaylist load [playlist name] -> loads playlist from file"},
+	{"8D", " -> disables 8D audio\n8D [speed] -> Loops audio around your head in an 8D fashion with [speed] speed"},
+	{"pause"," -> you are definitelly trolling, IT PAUSES THE SONG"},
+	{"unpause", " -> I give up, I hope you're proud of yourself. It does litterally the opposite of pause. IT UNPAUSES THE SONG"}
 };
 
-string Commands[] = { "man", "help", "ping", "cd", "exit", "quit", "leave", "dir", "tree","play", "queue", "skip", "volume", "v", "stop", "shuffle", "system", "cls", "rotation", "pan", "playlist", "playlists", "8D", "pause", "unpause"};
+
+
+int man(string);
+
+
+unordered_map<string, int (*)(string)> commands = {
+	{"man", man},
+	{"help", man},
+	{"ping", ping},
+	{"cd", move},
+	{"exit", leave},
+	{ "quit", leave },
+	{ "leave", leave },
+	{"close", leave},
+	{ "dir", dir },
+	{ "tree", tree },
+	{ "play", play },
+	{ "queue", Queue },
+	{ "skip", skip },
+	{ "volume", Volume },
+	{ "v", Volume },
+	{ "stop", stop },
+	{ "shuffle", _Shuffle },
+	{ "system", _System },
+	{ "cls", _cls },
+	{ "rotation", _cls },
+	{ "pan", _cls },
+	{ "playlist", _cls },
+	{ "playlists", _cls },
+	{ "8D", _cls },
+	{ "pause", _cls },
+	{ "unpause", _cls }
+};
+
 int man(string a) {
 	if (a.empty()) {
 
 		cout << "list of commands:\n";
-		for (string b : Commands) {
-			bool addmark = false;
-			for (auto c : ManDefinitions) {
-				if (c[0] == b) {
-					addmark = true;
-					break;
-				}
-			}
-			cout << "\t" << (addmark ? "*|" : " |") << b << endl;
+		for (auto& it : commands) {
+			string b = it.first;
+			cout << "\t" << (ManDefinitions.find(b) != ManDefinitions.end() ? "*|" : " |") << b << endl;
 		}
 	} else {
 		cout << endl;
-		for (auto b : ManDefinitions) {
-			if (b[0] == a) {
-				cout << b[0] << "::" << b[1] << endl;
-			}
-		}
+		if (ManDefinitions.find(a) != ManDefinitions.end())cout << "\n"<<a << ManDefinitions.at(a)<<endl;
 		cout << endl;
 	}
 
 	return 0;
 }
-int ((*CommandFunctions[])(string)) = { man, man, ping, move, leave, leave , leave, dir, tree, play, Queue, skip, Volume, Volume, stop, _Shuffle, _System, _cls, SoundRotation, SoundRotation, Playlist, Playlist, Eff8D, pause, unpause};
+
 
 void Player() {
 
@@ -434,17 +455,18 @@ int main(int argc, char* argv[]) {
 
 	for (int i = 0; i < Command.size() && Command[i] != ' '; i++)spacePos = i+1;
 	
-	for (int i = 0; i < sizeof(Commands)/sizeof(Commands[0]); i++) {
-		if (Command.substr(0, spacePos) == Commands[i]) {
+	
+		if (!(commands.find(Command.substr(0, spacePos)) == commands.end())) {
+			string temp = Command.substr(0, spacePos);
 			Command.erase(0, spacePos);
 			if (!Command.empty()) {
 				if (Command[0] == ' ') {
 					Command.erase(0, 1);
 				}
 			}
-			(*CommandFunctions[i])(Command);
+			((commands.at(temp))(Command));
 		}
-	}
+	
 
 	
 	
@@ -458,7 +480,7 @@ int main(int argc, char* argv[]) {
 
 		for (int i = 0; i < Command.size() && Command[i] != ' '; i++)spacePos = i + 1;
 
-		for (int i = 0; i < sizeof(Commands) / sizeof(Commands[0]); i++) {
+		/*for (int i = 0; i < sizeof(Commands) / sizeof(Commands[0]); i++) {
 			if (Command.substr(0, spacePos) == Commands[i]) {
 				Command.erase(0, spacePos);
 				if (!Command.empty()) {
@@ -468,6 +490,17 @@ int main(int argc, char* argv[]) {
 				}
 				(*CommandFunctions[i])(Command);
 			}
+		}*/
+
+		if (!(commands.find(Command.substr(0, spacePos)) == commands.end())) {
+			string temp = Command.substr(0, spacePos);
+			Command.erase(0, spacePos);
+			if (!Command.empty()) {
+				if (Command[0] == ' ') {
+					Command.erase(0, 1);
+				}
+			}
+			((commands.at(temp))(Command));
 		}
 		
 	}
