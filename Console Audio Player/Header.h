@@ -70,7 +70,14 @@ void stripUnicode(std::string& str) {
 }
 
 
+std::string GetFileName(std::string a ) {
+    std::string temp;
+    for (int i = a.length() - 1; i >= 0 && a[i] != '\\' && a[i] != '/'; i--) {
+        temp.insert(0, 1, a[i]);
+    }
 
+    return temp;
+}
 
 
 
