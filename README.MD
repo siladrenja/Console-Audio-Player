@@ -7,3 +7,4 @@ and I don't need to specify it for myself.
 this uses modified version of soloud, which is included with the source files. To  credit the creator of soloud here's his webpage:
 soloud: https://sol.gfxile.net/soloud/
 
+Required compiler version 17 or higher
