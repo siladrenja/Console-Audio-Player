@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <filesystem>
+#include <algorithm>
 
 
 std::string Extensions[] = { ".wav", ".mp3", ".mp4" };
@@ -66,7 +67,7 @@ bool invalidChar(char c) {
     return !(c >= 0 && c < 128);
 }
 void stripUnicode(std::string& str) {
-    str.erase(remove_if(str.begin(), str.end(), invalidChar), str.end());
+    str.erase(std::remove_if(str.begin(), str.end(), invalidChar), str.end());
 }
 
 
@@ -84,7 +85,7 @@ std::string GetFileName(std::string a ) {
 
 bool hasEnding(std::filesystem::path const& fullString, std::filesystem::path const& ending) {
     if (fullString.generic_wstring().length() >= ending.generic_wstring().length()) {
-        return (0 == fullString.generic_wstring().compare(fullString.generic_wstring().length() - ending.generic_wstring().length(), ending.generic_wstring().length(), ending));
+        return (0 == fullString.generic_wstring().compare(fullString.generic_wstring().length() - ending.generic_wstring().length(), ending.generic_wstring().length(), ending.wstring()));
     } else {
         return false;
     }

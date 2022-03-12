@@ -201,6 +201,16 @@
     <ClCompile Include="soloud20200207\src\core\soloud_misc.cpp" />
     <ClCompile Include="soloud20200207\src\core\soloud_queue.cpp" />
     <ClCompile Include="soloud20200207\src\core\soloud_thread.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_bassboostfilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_biquadresonantfilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_dcremovalfilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_echofilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_fftfilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_flangerfilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_freeverbfilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_lofifilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_robotizefilter.cpp" />
+    <ClCompile Include="soloud20200207\src\filter\soloud_waveshaperfilter.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>

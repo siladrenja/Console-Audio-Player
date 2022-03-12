@@ -1,6 +1,8 @@
 #include "soloud.h"
 #include "soloud_wav.h"
 #include "soloud_thread.h"
+#include "soloud_bassboostfilter.h"
+#include "soloud_freeverbfilter.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -11,7 +13,7 @@
 #include <algorithm>
 #include <random>
 #include <fstream>
-#include <processthreadsapi.h>
+//#include <processthreadsapi.h>
 #include <codecvt>
 #include <unordered_map>
 
@@ -39,7 +41,9 @@ SoLoud::Wav _sample;
 int CurrentAudio;
 
 vector<filesystem::path> SongQueue;
+unsigned long long SongNUM = 0;
 
+int unpause(string);
 
 #pragma region Commands
 int ping(string a) {
@@ -206,6 +210,35 @@ int skip(string a) {
 	return 0;
 }
 
+int seek(string a) {
+	if (!a.empty()) {
+		soloud.seek(CurrentAudio, stof(a));
+		return 0;
+	}
+	return -1;
+}
+
+int previous(string a) {
+	if (SongNUM < 1) {
+		seek("0");
+	}
+	SongNUM-= 2;
+	soloud.stopAll();
+	return 0;
+}
+
+int SongGoTo(string a) {
+	try {
+		SongNUM = stoi(a);
+
+		if (SongNUM >= SongQueue.size()) {
+			SongNUM = SongQueue.size() - 1;
+		}
+	} catch (...) {
+
+	}
+}
+
 int Volume(string a) {
 	soloud.setGlobalVolume(stof(a));
 	
@@ -218,9 +251,20 @@ int stop(string a) {
 	return 0;
 }
 
+
+
 int _Shuffle(string a) {
-	auto rng = std::default_random_engine{};
-	std::shuffle(std::begin(SongQueue), std::end(SongQueue), rng);
+	/*auto rd = std::random_device{};
+	auto rng = std::default_random_engine{ rd() };
+	std::shuffle(std::begin(SongQueue), std::end(SongQueue), rng);*/
+
+	//random_shuffle(std::begin(SongQueue), std::end(SongQueue));
+
+	std::random_device rd;
+	std::mt19937 g(rd());
+
+	std::shuffle(SongQueue.begin(), SongQueue.end(), g);
+
 	return 0;
 }
 
@@ -281,14 +325,16 @@ int Playlist(string a) {
 
 
 			} else if (command == "load") {
-				wifstream file(".\\playlists\\" + path + ".pl", ios::in);
-				file.seekg(0);
-				//SongQueue = (vector<filesystem::path>*)malloc(file.tellg());
+				std::wifstream wif(".\\playlists\\" + path + ".pl");
+				wif.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t>));
+				std::wstringstream wss;
+				wss << wif.rdbuf();
 				std::wstring line;
-				while (std::getline(file, line)) {
-					
+				while (getline(wss, line, L'\n')) {
 					SongQueue.push_back(line);
+
 				}
+				unpause(string());
 			}
 		}
 		return 0;
@@ -301,6 +347,8 @@ int Eff8D(string a) {
 	
 
 	if (!a.empty()) {
+		is8DActive = false;
+		if (loop.joinable()) loop.join();
 		is8DActive = true;
 		loop = thread(_loop, stof(a));
 	} else {
@@ -331,15 +379,84 @@ int unpause(string a) {
 	return 0;
 }
 
+int Bass(string a) {
+	try {
+		SoLoud::BassboostFilter bass;
+		if (a.empty()) {
+			bass.setParams(0);
+			soloud.setGlobalFilter(0, NULL);
+			
+		} else {
+			bass.setParams(stof(a));
+			soloud.setGlobalFilter(0, &bass);
+		}
+		
+		
+
+		return 0;
+	} catch (...) {
+
+	}
+}
+
+int reverb(string a) {
+	SoLoud::FreeverbFilter revrb;
+	if (a.empty()) {
+		
+		soloud.setGlobalFilter(1, NULL);
+	} else {
+		revrb.setParams(0, 0.5, 0.5, 1);
+		soloud.setGlobalFilter(1, &revrb);
+	}
+	return 0;
+}
+
+
+
+
+const unordered_map<string, int (*)(string)> effects = {
+	{"8D", Eff8D},
+	{"bass", Bass},
+	{"reverb", reverb}
+};
+int Effect(string Command) {
+	if (Command.empty()) {
+		cout << endl;
+		for (auto& a : effects) {
+			cout << a.first << endl;
+		}
+
+		cout << endl;
+	} else {
+
+		unsigned long long spacePos;
+		for (int i = 0; i < Command.size() && Command[i] != ' '; i++)spacePos = i + 1;
+
+
+		if (!(effects.find(Command.substr(0, spacePos)) == effects.end())) {
+			string temp = Command.substr(0, spacePos);
+			Command.erase(0, spacePos);
+			if (!Command.empty()) {
+				if (Command[0] == ' ') {
+					Command.erase(0, 1);
+				}
+			}
+			((effects.at(temp))(Command));
+		}
+	}
+
+	return 0;
+}
+
 #pragma endregion
 
 
-unordered_map<string,string> ManDefinitions= {
+const unordered_map<string,string> ManDefinitions= {
 	{"man", " -> manual page, duh"},
 	{"help", " -> do you really wonder that... or are you just trolling?"},
 	{ "shuffle", " -> shuffles the queue" },
 	{"playlist", " -> lists all saved playlists\nplaylist save [playlist name] -> saves playlist to file so you can easily load it when you want to\nplaylist load [playlist name] -> loads playlist from file"},
-	{"8D", " -> disables 8D audio\n8D [speed] -> Loops audio around your head in an 8D fashion with [speed] speed"},
+	{"effect", " -> lists all effects\neffect [effect name] [parameter] -> activates desired effect"},
 	{"pause"," -> you are definitelly trolling, IT PAUSES THE SONG"},
 	{"unpause", " -> I give up, I hope you're proud of yourself. It does litterally the opposite of pause. IT UNPAUSES THE SONG"}
 };
@@ -363,6 +480,9 @@ unordered_map<string, int (*)(string)> commands = {
 	{ "play", play },
 	{ "queue", Queue },
 	{ "skip", skip },
+	{ "prev", previous},
+	{ "previous", previous},
+	{ "back", previous},
 	{ "volume", Volume },
 	{ "v", Volume },
 	{ "stop", stop },
@@ -373,9 +493,11 @@ unordered_map<string, int (*)(string)> commands = {
 	{ "pan", SoundRotation },
 	{ "playlist", Playlist },
 	{ "playlists", Playlist },
-	{ "8D", Eff8D},
+	{ "effect", Effect},
 	{ "pause", pause },
-	{ "unpause", unpause }
+	{ "unpause", unpause },
+	{"seek", seek},
+	{"SetSong", SongGoTo}
 };
 
 int man(string a) {
@@ -398,20 +520,32 @@ int man(string a) {
 
 void Player() {
 
-
+	
 	soloud.init();
 	while (true) {
 		while (threadPause) {
 			SoLoud::Thread::sleep(100);
 			if (LeaveThreads) return;
 		}
-
-		if (!SongQueue.empty()) {
+		//cout << SongQueue.empty();
+		if (!SongQueue.empty() && soloud.getActiveVoiceCount() <= 0 && SongNUM < SongQueue.size()) {
 			
-			_sample.load(SongQueue[0].wstring().c_str());
+			_sample.load(SongQueue[SongNUM].wstring().c_str());
 			CurrentAudio = soloud.play(_sample);
 
-			SongQueue.erase(SongQueue.begin());
+			if (soloud.getActiveVoiceCount() > 0) {
+#ifdef _WIN32
+				SetConsoleTitle((L"Now Playing: " + SongQueue[SongNUM].wstring()).c_str());
+#endif // _WIN32
+
+				SongNUM++;
+			}
+
+			//CurrentSong = SongQueue[0];
+			//SongQueue.erase(SongQueue.begin());
+		} else if (SongNUM >= SongQueue.size()) {
+			//SongNUM = 0;
+			pause(string());
 		}
 		if (LeaveThreads) return;
 		while (threadPause) {
@@ -466,11 +600,11 @@ int main(int argc, char* argv[]) {
 
 	
 	int spacePos;
-
+	std::srand(unsigned(std::time(0)));
 	string Command;
 
 	
-	SongQueue.push_back("HailKingDN.mp3");
+	//SongQueue.push_back("HailKingDN.mp3");
 
 	cout << filesystem::absolute(Location) << ">>";
 	getline(cin, Command);
