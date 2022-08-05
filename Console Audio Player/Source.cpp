@@ -33,6 +33,9 @@ void Player();
 void _loop(float speed);
 thread t1(Player);
 thread loop;
+thread ytDlThrd;
+
+bool ytDlThrdJoinable = false;
 
 SoLoud::Soloud soloud;
 SoLoud::Wav _sample;
@@ -44,6 +47,22 @@ vector<filesystem::path> SongQueue;
 unsigned long long SongNUM = 0;
 
 int unpause(string);
+int play(string);
+
+void ytDl(string a) {
+	auto t = std::time(nullptr);
+	auto tm = *std::localtime(&t);
+	stringstream strstr;
+	strstr << std::put_time(&tm, "ytdl-%d-%m-%Y-%H-%M-%S");
+	string dat = strstr.str();
+	//cout << (string("ytdl.exe -x --audio-format \"mp3\" -o '" + dat + "/%(title)s-%(id)s.%(ext)s'") + "\"" + a + "\"");
+	system( (string("ytdl.exe -i -x --audio-format \"mp3\" -o " + dat + "/%(title)s-%(id)s.%(ext)s") + " \""+ a + "\"").c_str());
+	//cout << "got this far2";
+
+	play("./" + dat);
+	ytDlThrdJoinable = true;
+	return;
+}
 
 #pragma region Commands
 int ping(string a) {
@@ -128,7 +147,7 @@ int play(string a) {
 				}
 			} else {
 				for (filesystem::path p : filesystem::directory_iterator(a)) {
-					if (isAudio(p.generic_string())) {
+					if (isAudio(p.generic_wstring())) {
 						SongQueue.push_back(p);
 					}
 				}
@@ -191,7 +210,14 @@ int play(string a) {
 		}
 	}
 
+	unpause("");
+	return 0;
+}
 
+int ytPlay(string a) {
+	//if (ytDlThrd.joinable())ytDlThrd.join();
+	//ytDlThrd = thread(ytDl, a);
+	ytDl(a);
 	return 0;
 }
 
@@ -497,7 +523,11 @@ unordered_map<string, int (*)(string)> commands = {
 	{ "pause", pause },
 	{ "unpause", unpause },
 	{"seek", seek},
-	{"SetSong", SongGoTo}
+	{"SetSong", SongGoTo},
+	{"youtube", ytPlay},
+	{"yt", ytPlay},
+	{"ytPlay", ytPlay},
+	{"ytplay", ytPlay}
 };
 
 int man(string a) {
@@ -664,6 +694,7 @@ int main(int argc, char* argv[]) {
 	LeaveThreads = true;
 	if (t1.joinable()) t1.join();
 	if (loop.joinable()) loop.join();
+	if (ytDlThrd.joinable())ytDlThrd.join();
 
 	return 0;
 }
