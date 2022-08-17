@@ -17,6 +17,7 @@
 #include <codecvt>
 #include <unordered_map>
 
+
 #define timeout8D 10
 
 bool threadPause = false;
@@ -345,7 +346,7 @@ int Playlist(string a) {
 					return -1;
 				}
 				for (int i = 0; i < SongQueue.size(); i++) {
-					file << SongQueue[i].wstring() << endl;
+					file << SongQueue[i].wstring() << '\n';
 				}
 
 
@@ -361,6 +362,30 @@ int Playlist(string a) {
 
 				}
 				unpause(string());
+			} else if (command == "add") {
+				filesystem::create_directory("playlists");
+
+				wofstream file("./playlists/" + path + ".pl", ios::app);
+				file.imbue(std::locale(file.getloc(), new std::codecvt_utf8_utf16<wchar_t>));
+				//cout << "./playlists/" + path + ".pl";
+
+				if (!file) {
+					cout << "Cannot open file!" << endl;
+					return -1;
+				}
+				for (int i = 0; i < SongQueue.size(); i++) {
+					file << SongQueue[i].wstring() << '\n';
+				}
+			} else if (command == "view") {
+				std::wifstream wif(".\\playlists\\" + path + ".pl");
+				wif.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t>));
+				std::wstringstream wss;
+				wss << wif.rdbuf();
+				std::wstring line;
+				while (getline(wss, line, L'\n')) {
+					std::cout<< tostringnoUTF(line) << '\n';
+
+				}
 			}
 		}
 		return 0;
@@ -481,7 +506,7 @@ const unordered_map<string,string> ManDefinitions= {
 	{"man", " -> manual page, duh"},
 	{"help", " -> do you really wonder that... or are you just trolling?"},
 	{ "shuffle", " -> shuffles the queue" },
-	{"playlist", " -> lists all saved playlists\nplaylist save [playlist name] -> saves playlist to file so you can easily load it when you want to\nplaylist load [playlist name] -> loads playlist from file"},
+	{"playlist", " -> lists all saved playlists\nplaylist save [playlist name] -> saves playlist to file so you can easily load it when you want to\nplaylist load [playlist name] -> loads playlist from file\nplaylist add [playlist name] -> adds current queue to the playlist while keeping previously added songs\nplaylist view [playlist name] -> lists all songs in playlist"},
 	{"effect", " -> lists all effects\neffect [effect name] [parameter] -> activates desired effect"},
 	{"pause"," -> you are definitelly trolling, IT PAUSES THE SONG"},
 	{"unpause", " -> I give up, I hope you're proud of yourself. It does litterally the opposite of pause. IT UNPAUSES THE SONG"}
